@@ -1,0 +1,42 @@
+#
+# The VESA code make file
+#
+
+AS   = /Mx                      ### make file ASSEMBLER permenant switches
+AO   = /Zd /DMODELSIZE=1	### make file ASSEMBLER command line switches
+
+CS   = /c /Ox /Zp1 /Oi		### make file COMPILER permenant switches
+CO   = /Zi /AS /G2		### make file COMPILER command line switches
+
+LS = /Ma			### make file LINKER permentant switches
+LO = /Co			### make file LINKER command line switches
+
+DEFAULT: testw.exe testr.exe
+
+#
+# Subroutines
+#
+
+vesa.obj: vesa.c vbeai.h
+    cl $(CS) $(CO) vesa.c
+
+#
+# PLAYBACK test application
+#
+
+testw.obj: testw.c vbeai.h
+    cl $(CS) $(CO) testw.c
+
+testw.exe: testw.obj vesa.obj vbeai.h
+    link $(LS) $(LO) testw+vesa;
+
+#
+# RECORD test application
+#
+
+testr.obj: testw.c vbeai.h
+    cl $(CS) $(CO) /Fotestr.obj /DRMODE=1 testw.c
+
+testr.exe: testr.obj vesa.obj vbeai.h
+    link $(LS) $(LO) testr+vesa;
+

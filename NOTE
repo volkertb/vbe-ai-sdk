@@ -1,0 +1,35 @@
+#
+# The VESA code make file
+#
+
+AS   = /Mx                      ### make file ASSEMBLER permenant switches
+AO   = /Zd /DMODELSIZE=1	### make file ASSEMBLER command line switches
+
+CS   = /c /Gs /Zp1		### make file COMPILER permenant switches
+CO   = /Zi /AS /G2		### make file COMPILER command line switches
+
+LS = /Ma			### make file LINKER permentant switches
+LO = /Co			### make file LINKER command line switches
+
+DEFAULT: note.exe
+
+#
+# Subroutines
+#
+
+vesa.obj: vesa.c vbeai.h
+    cl $(CS) $(CO) vesa.c
+
+#
+# noteBACK test application
+#
+
+pdata.obj: pdata.c
+    cl $(CS) $(CO) pdata.c
+
+note.obj: note.c vbeai.h
+    cl $(CS) $(CO) note.c
+
+note.exe: note.obj pdata.obj vesa.obj vbeai.h
+    link $(LS) $(LO) note+pdata+vesa;
+

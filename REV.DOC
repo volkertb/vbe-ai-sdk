@@ -1,0 +1,178 @@
+
+
+             ----====<      VBE/AI Revision History         >====----
+             ----====<  Copyright (c) 1993,1994 VESA, Inc.  >====----
+             ----====<          All Rights Reserved         >====----
+
+
+    INTRODUCTION:
+
+        This document details the revision history of the various
+        drivers found in the VESA VBE/AI SDK and DDK.
+
+    Revision 1.00 00.04  05/02/94
+
+      - ALL: In INIT.ASM, changed the TSR method to use DOS int 21,
+	function 31, so a return code could be passed. This return
+	code returns a 1, just as the /V switch returns a 1 when hardware
+	is detected. If no hardware is detected, and the driver bails, then
+	a proper /V return code will be returned in that case as well.
+
+      - ALL: The program's environment string block pointer will be
+	released before the program terminates and stays resident.
+
+      - MAIN.ASM: Corrected return condition in open code when doing 2nd
+	open, or open in 32 bit mode - didn't pass back 0x014F.
+
+      - OPL2: Inverted carry in hw_checkpatch to return proper response.
+
+      - OPL2: Removed the loading of a default patch in OPL2, in the
+	msGlobalReset routine, since every NOTE-ON will load one anyway.
+	This also removed a pop when the chip was reset.
+
+      - OPL2: Added code in wsPreLoadPatch to ingore NULL ptrs.
+
+      - OPL2: Rewrote the channel stealing since it was ON/OFF, not
+	on a channel basis.
+
+      - OPL2: The driver has been modified to include the contents of
+	OPL2.BNK, in compressed form. This only added about 2.5k, but
+	traded off over 1k in the services structure, so the net gain
+	was about 1.5k.
+
+      - SBWAVE: Added code in interrupt to handle spurious interrupts.
+
+      - SBWAVE/PASWAVE/SSWAVE: Added cli/sti to wsStopIO for protection.
+
+      - SBWAVE/PASWAVE/SSWAVE: Fixed a bug in wsStopIO which cleared out
+	wsvendor.distate before calling wsPauseIO causing wsPauseIO to fail.
+
+      - SBWAVE/PASWAVE/SSWAVE: Fixed a bug in givesynccallback which
+	referenced wsvendor.distate, when it was pass in via BL.
+
+
+    Revision 1.00 00.03  04/08/94
+
+      - NOTE: A bug was found in the WAVE SERVICES structures. The
+        wsGetLastError and wsTimerTick functions were reversed in the
+        structure, according to the specification. Since the specification
+        sets the standard, all code will have to follow the written
+        specification. This release of software reflects this change. All
+        three sample drivers have been updated to reflect this change.
+
+           vbeai.h was adjusted.
+           vbeai.inc was adjusted.
+           wave\api.asm was adjusted.
+           wave\pas\hardware.asm was adjusted.
+           wave\sb\hardware.asm was adjusted.
+           wave\ss\hardware.asm was adjusted.
+
+      - All driver software version numbers have been incremented to 03.
+
+      - VOLUME.EXE has more messages printed to the screen to tell the
+        user more about what is being performed.
+
+      - PMIDI.EXE The cheap quantization has introduced a problem in
+        processing the tracks out of order. This has been fixed by
+        changing the way the delta time is handled.
+
+      - PLAY.C has now been renamed to TESTW.EXE. The secondary program
+        generated from PLAY.C was REC.EXE. This is now called TESTR.EXE.
+
+      - PLAY.C is now a new program as an example of loading and playing
+        a list of .WAV files.
+
+      - STUB.ASM and related files have been deleted since the drivers now
+        can unload if first in chain.
+
+      - PMIDI.EXE now only sends ACTIVESENSING (a MIDI command) if
+        explicitly requested, instead of as a default state.
+
+      - PMIDI.EXE implemented a method of reducing tempo interrupt rate
+        down to 300 ticks or less. This is a cheap quantization.
+
+      - The WAVE drivers were not returning the correct pointer to the
+        completed circular buffer. They were returning just the start
+        of the whole buffer. The pointer now reflect the start of the
+        completed division.
+
+      - The WAVE drivers were not allowing for more than one block to
+        be registered at a time. This has now been corrected to allow
+        up to to 32 blocks to be registered.
+
+      - PASWAVE.COM and SBWAVE.COM had secondary bugs where, internally,
+        the block sizes were wrong for the "wsPlayBlock" and "wsRecordBlock"
+        routines.
+
+      - SSWAVE.COM had a bug that, internally, gave the wrong block
+        size to play using "wsPlayBlock".
+
+    Revision 1.00 00.02  03/09/94
+
+      - PASWAVE.COM and SBWAVE.COM had a problem where a starting buffer
+        address of 0x30008000 (linear 0x38000), with a length of 0x8000,
+        was considered invalid, but now fixed.
+
+    Revision 1.00 00.02  02/28/94
+
+      - SBWAVE.COM has new code that parses the environment string
+        BLASTER= to find the DMA, IRQ and board address.
+
+      - Incremented the software version # in all 5 drivers, to #2. The
+        banners in all the drivers now reflect version 1.02, meaning
+        VBE/AI version 1, software version #02.
+
+      - Removed dead code from PMIDI.C, just cosmetic cleanup.
+
+      - Added a switch to PMIDI.C to allow Active Sensing output
+        to MIDI devices to be disabled. The Turtle Beach Maui card
+        turns off all notes when it receives Active Sensing.
+
+      - Fixed a fatal bug in MIDI\API.ASM msPreLoadPatch. The return
+        instruction left one word on the stack. Corrected by changing
+        the return value from 10 to 12.
+
+      - Fixed a fatal bug in WAVE\API.ASM wsPauseIO. The return
+        instruction left one word on the stack. Corrected by changing
+        the return value from nothing to 2.
+
+      - INT 10, Query #2 was responding with volume info & services if the
+        device did not actually have volume support, but now, no longer.
+
+      - Fixed a fatal bug in WAVE\SS\HARDWARE.ASM. The volume device
+        check return instruction left the parameters on the stack.
+        Corrected by eliminating the volume info & services structures.
+
+      - Fixed a fatal bug in MIDI\OPL2\HARDWARE.ASM. The volume device
+        check return instruction left the parameters on the stack.
+        Corrected by eliminating the volume info & services structures.
+
+      - The first loaded TSR can now unload from memory if there are
+        no other TSRs loaded after AND the INT 10 vector matches the
+        first TSR's entrypoint.
+
+      - The SBWAVE.COM driver had a bug in it where auto-init commands
+        did not setup the buffer divsion via cmd 48.
+
+      - The MPU.COM driver info structure field, milibrary, was one byte
+        too long, which skewed the rest of the structure. The result was,
+        the mimemreq field said 29k, instead of 69h.
+
+      - The OPL2.COM driver didn't save/restore registers in the timer
+        tick routine, so things were returned corrupted.
+
+      - MPU.COM MIDI input callbacks had a problem in validating the
+        applications callback routine. MPU.COM checked the offset instead
+        of the segment, so zero based offsets didn't get called.
+
+    Revision 1.00 00.01  02/14/94
+
+      - 1st official release of both the SDK and DDK. All version #s
+        reflect VBE/AI version 1.00, and software version #1.
+
+
+    Revision 0.98 00.01:
+
+      - This revision was available during the VESA review process, before
+        the specification was ratified.
+

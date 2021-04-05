@@ -1,0 +1,37 @@
+#
+# The VESA code make file
+#
+
+DEBG = /DDEBUG=1
+
+AS   = /Mx                      ### make file ASSEMBLER permenant switches
+AO   = /Zd /DMODELSIZE=1	### make file ASSEMBLER command line switches
+
+CS   = /c /Gs /Zp1 /Oi /On	### make file COMPILER permenant switches
+CO   = /Zi /AS /G2 $(DEBG)	### make file COMPILER command line switches
+
+LS = /Ma			### make file LINKER permentant switches
+LO = /Co			### make file LINKER command line switches
+
+DEFAULT: pmidi.exe
+
+#
+# Subroutines
+#
+
+vesa.obj: vesa.c vbeai.h
+    cl $(CS) $(CO) vesa.c
+
+#
+# pmidiBACK test application
+#
+
+pdata.obj: pdata.c
+    cl $(CS) $(CO) pdata.c
+
+pmidi.obj: pmidi.c vbeai.h
+    cl $(CS) $(CO) pmidi.c
+
+pmidi.exe: pmidi.obj pdata.obj vesa.obj vbeai.h
+    link $(LS) $(LO) pmidi+pdata+vesa;
+

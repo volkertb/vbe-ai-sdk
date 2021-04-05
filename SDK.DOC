@@ -1,0 +1,323 @@
+
+
+             ----====<   VBE/AI Driver Sample Source Code   >====----
+             ----====<  Copyright (c) 1993,1994 VESA, Inc.  >====----
+             ----====<          All Rights Reserved         >====----
+             ----====<        Version 1.03   04/09/94       >====----
+
+
+    INTRODUCTION:
+
+        This document describes the VESA VBE/AI Software Developers
+        Kit as found on the VBE/AI SDK release diskette. Included
+        are sample WAVE drivers for the Pro Audio Spectrum, Disney
+        Sound Source, and Sound Blaster cards.  Also included are
+        sample MIDI drivers for the OPL2, OPL3 FM chip, and Roland
+        MPU-401 MIDI transmitter/receiver.
+
+        The VBE/AI specification may be purchased directly from the
+	VESA office. To order a copy, call (408)435-0333.
+
+        Each body of code is as complete as possible for the 1.00
+        revision of the VBE/AI specification. The code may still
+        change to match any changes when the specification is
+        adopted, or to fix bugs.
+
+
+    ADDITIONAL PROGRAMMING NOTES/CLARIFICATIONS:
+
+        The Pascal calling conventional permits Pascal functions
+        the right to modify the working registers AX, BX, CX, and DX.
+        Your code must save these registers, if necessary, before calling
+        any of the VBE/AI Pascal function calls.
+
+
+    EXAMPLE DRIVERS:
+
+        The VBE/AI example drivers were written as DOS TSRs. There
+        is one API per TSR. Each one must be loaded separately into
+        memory. The program, SETPREF.EXE lets the user assign a
+        preference level to each driver.
+
+
+    LOADING SAMPLE DRIVERS:
+
+        Each driver uses a common set of command line parameters. The
+        set looks like this:
+
+            /H      helps
+            /?      helps
+            /B:dd   board # if multiple boards are present
+            /A:xx   board address
+            /D:xx   dma channel
+            /I:dd   irq channel
+            /MB:xx  memory base (segment)
+            /MR:xx  memory range
+            /P:dd   user preference setting
+            /U      unload this driver from memory
+
+                dd=decimal #, xx=hex #
+
+
+        To load a driver, just run the program. The program decides
+        if the hardware is present, then will stay resident. The
+        VBE/AI architecture does allow resident TSR drivers to be
+        unloaded. Only the first driver loaded will be permenantly
+        resident, all others may unload. The available drivers are:
+
+            PASWAVE.COM - Pro Audio Spectrum WAVE driver
+            SSWAVE.COM  - Disney Sound Source driver
+            SBWAVE.COM  - Sound Blaster & Compatible driver
+            OPL2.COM    - OPL2 MIDI driver
+            MPU.COM     - MPU-401 driver
+
+        NOTE: For now, use of the command line switches to setup DMA
+        and IRQ settings are required to properly function. In retail
+        versions of VBE/AI drivers, the manufacture's installation
+        software will make these setup decisions.
+
+
+    RUNNING SAMPLE APPLICATIONS:
+
+        There are five sample programs currently available in the
+        SDK. The source for each program is included on the
+        diskette. Two programs test the WAVE drivers, two test the
+        MIDI drivers, and the last is a utility for both setting
+        user preference levels and displaying the current installed
+        driver list.
+
+
+    NOTE.EXE
+
+        This program allows the user to enter a channel and note
+        number to be loaded into the target MIDI device. Once the
+        patch has been loaded, a menu of functions will be provided
+        to allow the user to turn the note ON or OFF.
+
+        To Use:  DOS>note [Pxx]
+
+        Where:   [Pxx] is the user preference #.
+
+        NOTE: all values are zero based, so the key number ranges
+              from 0 to 127. Channels range from 0 to 15. Channel
+              number 9 is the percussive channel.
+
+    PLAY.EXE
+
+        This program accepts a list of up to 10 small (under 64k)
+        .WAV files, presents a list to the user, and plays the
+        selected file.
+
+
+        VESA VBE/AI WAVE Output Program, 01.00
+        Copyright (c) 1993,1994  VESA, Inc. All Rights Reserved.
+
+        To Use:  DOS>play [file.wav] [file.wav] [file.wav]...
+
+        Where: [file.wav] is a list of up to 10 files to play.
+
+
+    PMIDI.EXE
+
+        This program will play any type 0 or type 1 MIDI file. The
+        file must be under 64k in size. Currently, the program
+        requires the driver's patch library to be resident in the
+        current directory, specfically, OPL2.BNK. This version can
+        only handle patch banks under 64K, but will soon support
+        unlimited sizes. The following is a dump of the banner and
+        command line parameter list:
+
+
+        VESA VBE/AI MIDI Output Test Program, 01.00
+        Copyright (c) 1993,1994  VESA, Inc. All Rights Reserved.
+
+        To Use:  DOS>pmidi [song] [H] [L] [Mxxx] [K{+|-xx}] [R{+|-xx}] [V{xx}]
+
+        Where: [song] is the .MID file to be played
+           [H]        High end synth playing on channels 1-10.
+           [I]        to receive MIDI input only.
+           [K{+|-}xx] shifts all key #s up|down by xx count (cheap transpose).
+           [L]        Low end synth playing on channels 11-16.
+           [Mxxxx]    patch Map file name (256 bytes for 2 tables).
+           [Pxx]      selects a VBE device at this (xx) user preference level.
+           [R{+|-}xx] shifts all patch #s up|down by xx count.
+           [T+|-xx]   Tempo shift faster (+) or (-) slower, in percent.
+           [V{xx}]    verbose mode to dump events as they play. xx can be 1-5.
+
+
+    SETPREF.EXE
+
+        This program allows the user to set his/her preference level
+        to each driver. This allows the application to choose which
+        driver is the most desirable to use. Also, the program shows
+        a listing of the driver configuration. The following is a
+        dump of the banner and command line parameter list:
+
+
+        VESA VBE/AI Preference setting Program, 01.00
+        Copyright (c) 1993,1994  VESA, Inc. All Rights Reserved.
+
+        To Use: DOS>SETPREF [H|?] [L] [+] [+xx] [-] [-xxx] [Vxxx]
+
+        Where: [L]        lists all devices.
+               [+]        increments all preference levels by 1
+               [+xxx]     increments a specific devices's preference.
+               [-]        decrements all preference levels by 1
+               [-xxx]     decrements a specific devices's preference.
+               [Vxx]      give a verbose listing of this driver.
+
+        NOTE: The highest preference level is zero (0), so incrementing the
+              preference actually lowers the user preference, and visa versa.
+
+
+    TESTW.EXE
+
+        This program tests the WAVE output of a given driver. It
+        allows the user to specify a starting block size,
+        incremental length, number of times to play the block, and
+        more. The program will send the block to the driver, and
+        wait for the appropriate callback within a fixed amount of
+        time. This time depends upon the sample rate and block size.
+        The following is a dump of the banner and command line
+        parameter list:
+
+
+        VESA VBE/AI WAVE Output Test Program, 01.00
+        Copyright (c) 1993,1994  VESA, Inc. All Rights Reserved.
+
+        To Use:  DOS>play [16] [Axxx] [Fxxx] [Dxxx] [Ixxx] [Lxxx] [R] [S] [Txxx]
+
+        Where: [16] enables 16 bit audio (8 bit is default).
+            [Axxx]  uses PlayCont/RecordCont. xxx is an optional block size.
+            [Fxxx]  user selects an alternate .WAV/.VOC file by the name of xxx.
+            [Dxxx]  allows for delays between blocks of xxx clock ticks (18.2tps).
+            [Ixxx]  after each block, Increment the next length by xxx.
+            [Lxxx]  block Length of first pcm block.
+            [R]     Reload the sample rate after each block finishes.
+            [S]     selects Stereo mode operation.
+            [Txxx]  number of Times to play the block.
+
+
+    TESTR.EXE
+
+        This program tests the WAVE input of a given driver. It
+        allows the user to specify a starting block size,
+        incremental length, number of times to play the block, and
+        more. The program will send the block to the driver, and
+        wait for the appropriate callback within a fixed amount of
+        time. This time depends upon the sample rate and block size.
+        The following is a dump of the banner and command line
+        parameter list:
+
+
+        VESA VBE/AI WAVE Input Test Program, 01.00
+        Copyright (c) 1993,1994  VESA, Inc. All Rights Reserved.
+
+        To Use:  DOS>rec  [16] [Axxx] [Fxxx] [Dxxx] [Ixxx] [Lxxx] [O{+}] [R] [S] [Txxx]
+
+        Where: [16] enables 16 bit audio (8 bit is default).
+            [Axxx]  uses PlayCont/RecordCont. xxx is an optional block size.
+            [Fxxx]  user selects a new File by the name of xxx.
+            [Dxxx]  allows for delays between blocks of xxx clock ticks (18.2tps).
+            [Ixxx]  after each block, Increment the next length by xxx.
+            [Lxxx]  block Length of first pcm block.
+            [O{+}]  Save one recorded block. '+' saves all blocks.
+            [R]     Reload the sample rate after each block finishes.
+            [S]     selects Stereo mode operation.
+            [Txxx]  number of Times to play the block.
+
+
+    COMPILING SAMPLE SOURCE CODE:
+
+        All the example code was developed using Microsoft 'C' and
+        MASM Assember.  Debugging of the TSR's was done using
+        Nu-Mega's Soft-ICE and applications using Codeview. To build
+        the code, use the included batch files and MAKE files.
+        Again, the MAKE files depend upon the above directory
+        structure to build the executables. The following list
+        describes the files needed to build this driver release:
+
+        1. The file 'MKSDK.BAT' executes several MAKE sequences
+           to build the VBE/AI SDK program set.
+
+        2. The file 'MAKEFILE' is the general make file to
+           compile the five sample drivers.
+
+        3. The file 'TESTW' is the make file to build the WAVE
+           playback (TESTW.EXE) and record (TESTR.EXE) test programs.
+
+        4. The file 'PLAY' is the make file to build the WAVE
+           playback (PLAY.EXE) program.
+
+        5. The file 'PMIDI' is the make file to build the MIDI
+           player program.
+
+        6. The file 'NOTE' is the make file to build the NOTE
+           player program.
+
+        7. The file 'SETPREF' is the make file to build the user
+           preference adjustment program.
+
+        8. The file 'VOLUME' is the make file to build the Volume
+           control test program.
+
+
+    DRIVER DISKETTE CONTENTS:
+
+        Disk Contents:
+
+        REV.DOC         Revision changes for the SDK/DDK
+
+        SDK.DOC         Intro documentation to the SDK
+        SDK.BAT         Batch file to build the release floppy
+        MKSDK.BAT       Batch file to build the example programs
+
+        PASWAVE.COM     Pro Audio Spectrum WAVE VBE/AI driver
+        SSWAVE.COM      Disney Sound source WAVE VBE/AI driver
+        SBWAVE.COM      Sound Blaster & Compatibles WAVE VBE/AI driver
+        OPL2.COM        OPL2 VBE/AI MIDI driver
+        MPU.COM         MPU-401 VBE/AI MIDI driver
+
+        ALFRE.MID       Sample MIDI file
+        GUPPY.WAV       Sample WAVE file
+
+        OPL2.BNK        Instrument bank for the OPL2 MIDI driver
+        MT32            Patch map from GM to an MT32
+
+        PLAY            Make file for the WAVE PLAY.EXE program
+        PLAY.C          Source to PLAY.EXE
+        PLAY.EXE        PLAY.EXE executable for playback testing of WAVE audio
+
+        TESTW           Make file for the WAVE TESTW.EXE program
+        TESTW.C         Source to TESTW.EXE
+        TESTW.EXE       TESTW.EXE executable for playback testing of WAVE audio
+
+        NOTE            Make file for the single MIDI note test program
+        NOTE.C          Source code for the single MIDI note test program
+        NOTE.EXE        Executable MIDI note test program
+
+        PMIDI.C         Source to PMIDI.EXE midi file player
+        PMIDI           Make file for the MIDI PMIDI.EXE program
+        PMIDI.EXE       PMIDI.EXE executable for MIDI playback
+        PDATA.C         Static data for PMIDI.C
+
+        SETPREF         Make file for setting user preferences & general query
+        SETPREF.C       Source to SETPREF.EXE executable
+        SETPREF.EXE     SETPREF.EXE executable to set user preference levels
+
+        VOLUME          Make file for the volume test program
+        VOLUME.C        Tests the Volume control of a given device
+        VOLUME.EXE      Executable volume test program
+
+        VESA.C          Mid level helper code for VBE/AI driver support
+
+        MIDI.H          Miscellaneous header files
+        VBEAI.H
+        VESA.H
+        MIDI.INC
+        VBEAI.INC
+        WAVE.INC
+
+        MIDI\OPL2\TOOLS A directory with s/w for building the OPL2.BNK and
+                        MT32 patch map.
+

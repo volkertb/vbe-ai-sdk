@@ -1,0 +1,32 @@
+#
+# The VESA code make file
+#
+
+AS   = /Mx                      ### make file ASSEMBLER permenant switches
+AO   = /Zd /DMODELSIZE=1	### make file ASSEMBLER command line switches
+
+CS   = /c /Ox /Zp1 /Oi		### make file COMPILER permenant switches
+CO   = /Zi /AS /G2		### make file COMPILER command line switches
+
+LS = /Ma			### make file LINKER permentant switches
+LO = /Co			### make file LINKER command line switches
+
+DEFAULT: setpref.exe
+
+#
+# Subroutines
+#
+
+vesa.obj: vesa.c vbeai.h
+    cl $(CS) $(CO) vesa.c
+
+#
+# setprefBACK test application
+#
+
+setpref.obj: setpref.c vbeai.h
+    cl $(CS) $(CO) setpref.c
+
+setpref.exe: setpref.obj vesa.obj vbeai.h
+    link $(LS) $(LO) setpref+vesa;
+
