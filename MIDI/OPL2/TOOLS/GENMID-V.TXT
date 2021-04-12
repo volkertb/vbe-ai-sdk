@@ -1,0 +1,72 @@
+MASTER LEASE LICENSE FOR COMPUTER GAME USE
+
+This agreement will serve to mutually set forth the terms of licensing and
+consideration so that _____________________(Company Name)(the Licensee),
+can have non-exclusive use of the tones created by The Fat Man and K.
+Weston Phelan and administered by Fat Labs, Inc. (the Licensor) in the bank
+files called ____________________ (the Libraries)(All libraries Copyright
+1993, The Fat Man), for use in the product(s) entitled
+___________________________ (the Product).
+
+1.  The Licensor hereby grants the Licensee the non-exclusive right to use
+the libraries in the product.
+
+2.  This License is granted in perpetuity for the entire world.
+
+3.  In consideration the Licensee will pay a fee of $1 (per product if more
+than one product is covered by this license) payable upon signing this
+agreement and agrees to encode the Product with the words "General MIDI
+timbres for Yamaha OPL-2- and OPL-3-based sound cards were produced by The
+Fat Man(TM) and developed by K. Weston Phelan and George Alistair Sanger.
+Copyright 1993, The Fat Man(TM)" which will appear on screen at the time
+that the sound driver is loaded into memory.  Attendant packaging and paper
+documentation will also contain the credit.
+
+4.  Within 30 days of its shipping date, The Licensee agrees to provide
+Licensor with a copy of the Product.
+
+5.  All software distributed by Licensee and that contains the timbres
+(FATV10.BNK) must contain this contract and the overview of licensing terms
+(GENMID-V.TXT and README3.TXT) in software and in paper documentation.  End
+products such as games that do not invite further distribution of
+FATV10.BNK need not include the .TXT files.
+
+6.  If the names of any of the files are changed in software, they must be
+changed in the text of all documents and notices as well.
+
+7.  The Licensor warrants and represents that it is free of any and all
+encumbrances to enter in to this agreement and that in doing so it does not
+infringe upon any other rights or agreements written or implied.
+
+8.  This agreement shall be construed only under the laws of the United
+States Of America and the State of Texas.  If any part of this agreement
+shall be invalid or unenforceable it shall not affect the validity of the
+balance of this agreement.
+
+9.  This document constitutes the entire agreement between the Licensor and
+the Licensee and supersedes any prior understandings or written or oral
+agreements between the parties.
+
+AGREED TO AND ACCEPTED
+
+
+Licensee
+
+x___________________________(Signature)
+___________________(Name)
+___________________(Company)
+___________________(Address)
+___________________(City, State, Zip)
+___________________(Phone)
+
+
+George A Sanger
+The Fat Man
+
+___________________________
+7611 Shoal Creek Boulevard
+Austin, TX  78757
+512-454-5775
+
+The Fat Man and Fat Labs, Inc. are trade marks of George Alistair Sanger.
+

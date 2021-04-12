@@ -1,0 +1,131 @@
+
+
+        OVERVIEW OF LICENSING TERMS FOR GENERAL MIDI TIMBRES
+
+
+        The file entitled FATV10.BNK, and it's derivative OPL2.BNK,
+        contain the information that defines General MIDI timbres
+        (piano sound, trumpet sound, etc.) for the Yamaha chip in your
+        sound card. All timbres in both FATV10.BNK and OPL2.BNK are
+        Copyright (c) 1993, The Fat Man, and administered by Fat Labs,
+        Inc. You may use these timbres in your product provided that
+        you:
+
+        1) Send $1 per product that contains the timbres (not $1 per
+           box shipped, but a one-time, nominal charge to make our
+           contract binding),
+
+        2) put our credit on the screen when sound drivers load and in
+           your paper documentation,
+
+        3) send us a copy of your finished product, and
+
+        4) be sure that all software that is distributed by you and
+           that contains the timbres (FATV10.BNK and OPL2.BNK) also
+           contains this notice and our contract (README3.TXT and
+           GENMID-V.TXT) in software and paper documentation. This is
+           meant to cover products such as SDK's and OEM drivers that
+           will encourage the incorporation of FATV10.BNK and OPL2.BNK
+           into other products. End products, such as games, that do
+           not invidte further distribution of FATV10.BNK and OPL2.BNK
+           need not include the .TXT files.
+
+        Our credit should read:
+
+        General MIDI timbres for Yamaha OPL-2 and OPL3 based sound cards
+        were produced by The Fat Man(tm) and developed by K. Weston Phelan
+        and George Alistair Sanger. Copyright (c) 1993, The Fat Man(tm)
+
+        Please read the contract (attached file GENMID-V.TXT), sign it
+        and send one per title with your check to:
+
+        ATTN:  Mission Control
+        The Fat Man
+        7611 Shoal Creek Blvd.
+        Austin, TX  78757
+
+
+        Updates and copies are available for a nominal license
+        fee of $1 from the Fat Farm BBS @ (512)454-9990.
+
+        The Fat Man and Fat Labs, Inc. are trade marks of George Alistair
+        Sanger.
+
+
+
+
+
+        MASTER LEASE LICENSE FOR COMPUTER GAME USE
+
+        This agreement will serve to mutually set forth the terms of
+        licensing and consideration so that _________________________
+        (Company Name)(the Licensee), can have non-exclusive use of
+        the tones created by the Fat Man (the Licensor) in the bank
+        files called ______________________ (the Libraries)(All libraries
+        Copyright 1993, The Fat Man), for use in the product(s) entitled
+        __________________________ (the Product).
+
+        1.  The Licensor hereby grants the Licensee the non-exclusive
+        right to use in the product.
+
+        2.  This License is granted in perpetuity for the entire
+        world.
+
+        3.  In consideration the Licensee will pay a fee of $1 (per
+        product if more than one product is covered by this license)
+        payable upon signing this agreement and agrees to encode the
+        Product with the words "General MIDI timbres for Yamaha OPL-2
+        and OPL-3 based sound cards were produced by The Fat Man(tm)
+        and developed by K. Weston Phelan and George Alistair Sanger.
+        Copyright (c) 1993, The Fat Man(tm)"  which will appear on
+        screen at the time that the sound driver is loaded into memory.
+        Attendant packaging and paper documentation will also contain
+        the credit.
+
+        4.  Within 30 days of its shipping date, The Licensee agrees
+        to provide Licensor with a copy of the Product.
+
+        5.  All software distributed by Licensee and that contains the
+        timbres (FATV10.BNK) must contain this contract and the overview
+        of licensing terms (GENMID-V.TXT and README3.TXT) in software
+        and in paper documentation. End products such as games that do
+        not invite further distribution of FATV10.BNK need not include
+        the .TXT files.
+
+        6.  This agreement shall be construed only under the laws of
+        the United States Of America and the State of Texas.  If any
+        part of this agreement shall be invalid or unenforceable it
+        shall not affect the validity of the balance of this agreement.
+
+        7.  This document constitutes the entire agreement between
+        the Licensor and the Licensee and supersedes any prior
+        understandings or written or oral agreements between the
+        parties.
+
+
+        AGREED TO AND ACCEPTED
+
+
+        Licensee
+
+        x___________________________(Signature)
+        ___________________(Name)
+        ___________________(Company)
+        ___________________(Address)
+        ___________________(City, State, Zip)
+        ___________________(Phone)
+
+
+        George A Sanger
+        The Fat Man
+
+        ___________________________
+        7611 Shoal Creek Boulevard
+        Austin, TX  78757
+        512-454-5775
+
+
+        The Fat Man and Fat Labs, Inc. are trade marks of George Alistair
+        Sanger.
+
+
